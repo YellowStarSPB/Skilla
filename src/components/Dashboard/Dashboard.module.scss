@@ -1,0 +1,182 @@
+.dashboard {
+    padding: 20px 120px 0;
+    .balanceAndDate {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-bottom: 32px;
+        .balance {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 48px;
+            background-color: #fff;
+            font-size: 14px;
+            margin-right: 48px;
+            cursor: pointer;
+            p {
+                margin-right: 10px;
+                color: #899cb1;
+                span {
+                    color: #000;
+                    font-family: 'SF-Medium';
+                }
+            }
+        }
+        .date {
+            display: flex;
+            align-items: center;
+            .arrowLeft {
+                margin-right: 21px;
+                cursor: pointer;
+            }
+            .arrowRight {
+                transform: rotate(180deg);
+                cursor: pointer;
+            }
+            .calendar {
+                display: flex;
+                align-items: center;
+                margin-right: 21px;
+
+                img {
+                    margin-right: 8px;
+                    cursor: pointer;
+                }
+                p {
+                    color: #005ff8;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+    .filtersAndSearch {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 7px;
+        .borderInput {
+            border: 1px solid #adbfdf;
+        }
+        .search {
+            position: relative;
+            width: 482px;
+            display: flex;
+            align-items: center;
+            padding: 10px 36px 10px 18px;
+            border-radius: 48px;
+            &:focus-within {
+                border: 1px solid #005ff8;
+                background: #fff;
+                border-radius: 48px;
+            }
+            &:hover {
+                .searchIcon {
+                    path {
+                        fill: #002cfb;
+                    }
+                }
+            }
+            .searchIcon {
+                position: absolute;
+            }
+
+            input {
+                width: 100%;
+                background: transparent;
+                font-size: 14px;
+                margin-left: 28px;
+                &:focus {
+                    &::placeholder {
+                        color: transparent;
+                    }
+                }
+                &::placeholder {
+                    color: #5e7793;
+                }
+                &:hover {
+                    .searchIcon {
+                        path {
+                            fill: #002cfb;
+                        }
+                    }
+                }
+            }
+            .btn {
+                position: absolute;
+                right: 17px;
+                cursor: pointer;
+                &:hover {
+                    path {
+                        fill: #002cfb;
+                    }
+                }
+            }
+        }
+        .filtersWrapper {
+            color: #5e7793;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            .rotate {
+                transform: rotate(180deg);
+                path {
+                    fill: #002cfb;
+                }
+            }
+            .active {
+                color: #002cfb;
+            }
+            .callType {
+                display: flex;
+                align-items: center;
+                position: relative;
+                cursor: pointer;
+                p {
+                    margin-right: 8px;
+                }
+                .typePopup {
+                    position: absolute;
+                    width: 242px;
+                    top: 25px;
+                    right: 0;
+                    border-radius: 4px;
+                    border: 1px solid #eaf0fa;
+                    box-shadow: 0px 0px 26px rgba(233, 237, 243, 0.8);
+                    background: #fff;
+                    color: #899cb1;
+                    overflow: hidden;
+                    cursor: pointer;
+                    li {
+                        padding: 14px 0 14px 20px;
+                        &:hover {
+                            background: rgba(0, 44, 251, 0.13);
+
+                            color: #000;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .callsWrapper {
+        padding: 24px 40px 57px;
+        background: #fff;
+        box-shadow: 0px 4px 5px #e9edf3;
+        border-radius: 8px;
+        .columnInfo {
+            display: grid;
+            grid-template-columns: 55px 90px 130px 1fr 215px 1fr 90px;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eaf0fa;
+            color: #899cb1;
+            font-size: 14px;
+            p {
+                display: block;
+            }
+        }
+        
+    }
+}

@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'SF-Regular';
+    src: url('./fonts/SF-Regular.otf');
+    src: local('./fonts/SF Pro Display'), local('SF Pro Display Regular');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'SF-Medium';
+    src: url('./fonts/SF-Medium.otf');
+    src: local('./fonts/SF Pro Display'), local('SF Pro Display Medium');
+    font-weight: 500;
+    font-style: normal;
+}
