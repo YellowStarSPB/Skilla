@@ -1,5 +1,14 @@
 .dashboard {
     padding: 20px 120px 0;
+    @media screen and (max-width: 1830px) {
+        padding: 20px 80px 0;
+    }
+    @media screen and (max-width: 1535px) {
+        padding: 20px 40px 0px;
+    }
+    .active {
+        color: #002cfb;
+    }
     .balanceAndDate {
         display: flex;
         justify-content: flex-end;
@@ -14,38 +23,30 @@
             font-size: 14px;
             margin-right: 48px;
             cursor: pointer;
+            &:hover {
+                span {
+                    color: #0024cb;
+                }
+                svg {
+                    path {
+                        fill: #0024cb;
+                    }
+                }
+            }
             p {
                 margin-right: 10px;
                 color: #899cb1;
+
                 span {
                     color: #000;
                     font-family: 'SF-Medium';
                 }
             }
-        }
-        .date {
-            display: flex;
-            align-items: center;
-            .arrowLeft {
-                margin-right: 21px;
-                cursor: pointer;
-            }
-            .arrowRight {
-                transform: rotate(180deg);
-                cursor: pointer;
-            }
-            .calendar {
-                display: flex;
-                align-items: center;
-                margin-right: 21px;
-
-                img {
-                    margin-right: 8px;
-                    cursor: pointer;
-                }
-                p {
-                    color: #005ff8;
-                    font-size: 14px;
+            svg {
+                &:active {
+                    path {
+                        fill: #274bc8;
+                    }
                 }
             }
         }
@@ -53,8 +54,10 @@
     .filtersAndSearch {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: flex-end;
         margin-bottom: 7px;
+        position: relative;
+        padding: 10px 0;
         .borderInput {
             border: 1px solid #adbfdf;
         }
@@ -119,16 +122,7 @@
             display: flex;
             align-items: center;
             gap: 32px;
-            .rotate {
-                transform: rotate(180deg);
-                path {
-                    fill: #002cfb;
-                }
-            }
-            .active {
-                color: #002cfb;
-            }
-            .callType {
+            .otherFilters {
                 display: flex;
                 align-items: center;
                 position: relative;
@@ -136,47 +130,51 @@
                 p {
                     margin-right: 8px;
                 }
-                .typePopup {
-                    position: absolute;
-                    width: 242px;
-                    top: 25px;
-                    right: 0;
-                    border-radius: 4px;
-                    border: 1px solid #eaf0fa;
-                    box-shadow: 0px 0px 26px rgba(233, 237, 243, 0.8);
-                    background: #fff;
-                    color: #899cb1;
-                    overflow: hidden;
-                    cursor: pointer;
-                    li {
-                        padding: 14px 0 14px 20px;
-                        &:hover {
-                            background: rgba(0, 44, 251, 0.13);
-
-                            color: #000;
-                        }
-                    }
-                }
             }
         }
     }
     .callsWrapper {
-        padding: 24px 40px 57px;
+        padding: 24px 0 57px;
         background: #fff;
         box-shadow: 0px 4px 5px #e9edf3;
         border-radius: 8px;
         .columnInfo {
             display: grid;
-            grid-template-columns: 55px 90px 130px 1fr 215px 1fr 90px;
+            grid-template-columns: 55px 90px 130px 326px 215px 1fr 90px;
             align-items: center;
-            padding-bottom: 20px;
+            padding: 0 40px 20px;
             border-bottom: 1px solid #eaf0fa;
             color: #899cb1;
             font-size: 14px;
             p {
                 display: block;
             }
+            @media screen and (max-width: 1830px) {
+                grid-template-columns: 55px 90px 130px 155px 155px 1fr 90px;
+            }
+            @media screen and (max-width: 1535px) {
+                grid-template-columns: 55px 90px 100px 130px 130px 1fr 90px;
+            }
         }
-        
+    }
+}
+
+.loader {
+    width: 100px;
+    height: 100px;
+    background-color: #002cfb;
+    margin: 100px auto;
+    animation-name: rotateLoader;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes rotateLoader {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
     }
 }

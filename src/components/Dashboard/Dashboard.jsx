@@ -1,20 +1,30 @@
-import React, { useState } from 'react';
-import plusImg from '../../assets/img/dashboard/plus.svg';
-import arrow from '../../assets/img/dashboard/arrow.svg';
-import calendar from '../../assets/img/dashboard/calendar.svg';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectVisibleCall } from '../../store/calls/calls-slice';
+
+import CallItem from '../CallItem/CallItem';
+import Calendar from '../Calendar/Calendar';
+import CallTypeFilter from '../CallTypeFilter/CallTypeFilter';
+import OtherFilters from '../OtherFilters/OtherFilters';
 
 import styles from './Dashboard.module.scss';
-import { useSelector } from 'react-redux';
-import CallItem from '../CallItem/CallItem';
+import SearchInput from '../SearchInput/SearchInput';
 
-const callType = ['Все типы', 'Входящие', 'Исходящие'];
+const otherFilters = [
+    'Все сотрудники',
+    'Все звонки',
+    'Все источники',
+    'Все оценки',
+    'Все ошибки',
+];
+
 function Dashboard() {
-    const { calls } = useSelector((state) => state.calls);
-    console.log(calls.map((item) => item));
-    const [inputValue, setInputValue] = useState('');
+    const { status } = useSelector((state) => state.calls);
+    const { type } = useSelector((state) => state.filter);
+    const date = useSelector((state) => state.filter.date);
 
-    const [showCallType, setShowCallType] = useState(false);
-    const [currentCallType, setCurrentCallType] = useState(0);
+    const calls = useSelector((state) => selectVisibleCall(state, type, date));
+    const [inputValue, setInputValue] = useState('');
 
     return (
         <section className={styles.dashboard}>
@@ -24,20 +34,18 @@ function Dashboard() {
                     <p>
                         Баланс: <span>272 ₽</span>
                     </p>
-                    <img src={plusImg} alt="plus" />
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path
+                            d="M12 0C5.376 0 0 5.376 0 12C0 18.624 5.376 24 12 24C18.624 24 24 18.624 24 12C24 5.376 18.624 0 12 0ZM18 13.2H13.2V18H10.8V13.2H6V10.8H10.8V6H13.2V10.8H18V13.2Z"
+                            fill="#005FF8"
+                        />
+                    </svg>
                 </div>
-                <div className={styles.date}>
-                    <img className={styles.arrowLeft} src={arrow} alt="arrow" />
-                    <div className={styles.calendar}>
-                        <img src={calendar} alt="calendar" />
-                        <p>3 дня</p>
-                    </div>
-                    <img className={styles.arrowRight} src={arrow} alt="arrow" />
-                </div>
+                <Calendar />
             </div>
             {/* поиск и варианты сортировки */}
             <div className={styles.filtersAndSearch}>
-                <label
+                {/* <label
                     className={`${styles.search} ${inputValue ? styles.borderInput : ''}`}
                 >
                     <svg
@@ -77,179 +85,13 @@ function Dashboard() {
                             />
                         </svg>
                     )}
-                </label>
+                </label> */}
+                <SearchInput placeholder={'Поиск по звонкам'} />
                 <div className={styles.filtersWrapper}>
-                    <div
-                        onClick={() => setShowCallType(!showCallType)}
-                        className={styles.callType}
-                    >
-                        <p className={currentCallType !== 0 ? styles.active : ''}>
-                            {callType[currentCallType]}
-                        </p>
-
-                        <svg
-                            className={showCallType ? styles.rotate : ''}
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                        >
-                            <path
-                                d="M7.41 8.59009L12 13.1701L16.59 8.59009L18 10.0001L12 16.0001L6 10.0001L7.41 8.59009Z"
-                                fill="#ADBFDF"
-                            />
-                        </svg>
-                        {showCallType && (
-                            <ul className={styles.typePopup}>
-                                {callType.map((item, index) => (
-                                    <li
-                                        className={
-                                            index === currentCallType ? styles.active : ''
-                                        }
-                                        onClick={() => setCurrentCallType(index)}
-                                        key={index}
-                                    >
-                                        {item}
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
-                    </div>
-
-                    <div
-                        // onClick={() => setShowCallType(!showCallType)}
-                        className={styles.callType}
-                    >
-                        <p>Все сотрудники</p>
-
-                        <svg
-                            // className={showCallType ? styles.rotate : ''}
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                        >
-                            <path
-                                d="M7.41 8.59009L12 13.1701L16.59 8.59009L18 10.0001L12 16.0001L6 10.0001L7.41 8.59009Z"
-                                fill="#ADBFDF"
-                            />
-                        </svg>
-                        {/* {showCallType && (
-                            <ul className={styles.typePopup}>
-                                {callType.map((item, index) => (
-                                    <li onClick={() =>setCurrentCallType(index)} key={index}>{item}</li>
-                                ))}
-                            </ul>
-                        )} */}
-                    </div>
-
-                    <div
-                        // onClick={() => setShowCallType(!showCallType)}
-                        className={styles.callType}
-                    >
-                        <p>Все звонки</p>
-
-                        <svg
-                            // className={showCallType ? styles.rotate : ''}
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                        >
-                            <path
-                                d="M7.41 8.59009L12 13.1701L16.59 8.59009L18 10.0001L12 16.0001L6 10.0001L7.41 8.59009Z"
-                                fill="#ADBFDF"
-                            />
-                        </svg>
-                        {/* {showCallType && (
-                            <ul className={styles.typePopup}>
-                                {callType.map((item, index) => (
-                                    <li onClick={() =>setCurrentCallType(index)} key={index}>{item}</li>
-                                ))}
-                            </ul>
-                        )} */}
-                    </div>
-
-                    <div
-                        // onClick={() => setShowCallType(!showCallType)}
-                        className={styles.callType}
-                    >
-                        <p>Все источники</p>
-
-                        <svg
-                            // className={showCallType ? styles.rotate : ''}
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                        >
-                            <path
-                                d="M7.41 8.59009L12 13.1701L16.59 8.59009L18 10.0001L12 16.0001L6 10.0001L7.41 8.59009Z"
-                                fill="#ADBFDF"
-                            />
-                        </svg>
-                        {/* {showCallType && (
-                            <ul className={styles.typePopup}>
-                                {callType.map((item, index) => (
-                                    <li onClick={() =>setCurrentCallType(index)} key={index}>{item}</li>
-                                ))}
-                            </ul>
-                        )} */}
-                    </div>
-
-                    <div
-                        // onClick={() => setShowCallType(!showCallType)}
-                        className={styles.callType}
-                    >
-                        <p>Все оценки</p>
-
-                        <svg
-                            // className={showCallType ? styles.rotate : ''}
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                        >
-                            <path
-                                d="M7.41 8.59009L12 13.1701L16.59 8.59009L18 10.0001L12 16.0001L6 10.0001L7.41 8.59009Z"
-                                fill="#ADBFDF"
-                            />
-                        </svg>
-                        {/* {showCallType && (
-                            <ul className={styles.typePopup}>
-                                {callType.map((item, index) => (
-                                    <li onClick={() =>setCurrentCallType(index)} key={index}>{item}</li>
-                                ))}
-                            </ul>
-                        )} */}
-                    </div>
-
-                    <div
-                        // onClick={() => setShowCallType(!showCallType)}
-                        className={styles.callType}
-                    >
-                        <p>Все ошибки</p>
-
-                        <svg
-                            // className={showCallType ? styles.rotate : ''}
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                        >
-                            <path
-                                d="M7.41 8.59009L12 13.1701L16.59 8.59009L18 10.0001L12 16.0001L6 10.0001L7.41 8.59009Z"
-                                fill="#ADBFDF"
-                            />
-                        </svg>
-                        {/* {showCallType && (
-                            <ul className={styles.typePopup}>
-                                {callType.map((item, index) => (
-                                    <li onClick={() =>setCurrentCallType(index)} key={index}>{item}</li>
-                                ))}
-                            </ul>
-                        )} */}
-                    </div>
+                    <CallTypeFilter />
+                    {otherFilters.map((item) => (
+                        <OtherFilters key={item} filter={item} />
+                    ))}
                 </div>
             </div>
             <div className={styles.callsWrapper}>
@@ -262,10 +104,13 @@ function Dashboard() {
                     <p>Оценка</p>
                     <p>Длительность</p>
                 </div>
-
-                {calls.map((item) => (
-                    <CallItem key={item.id} {...item} />
-                ))}
+                {status === 'error' ? (
+                    <h2>ПРоизошла ошибка</h2>
+                ) : status === 'loading' ? (
+                    <div className={styles.loader}></div>
+                ) : (
+                    calls.map((item) => <CallItem key={item.id} {...item} />)
+                )}
             </div>
         </section>
     );

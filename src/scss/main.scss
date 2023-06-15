@@ -14,6 +14,12 @@
 .container {
     display: grid;
     grid-template-columns: 240px 1fr;
+    @media screen and (max-width: 1535px) {
+        grid-template-columns: 180px 1fr;
+    }
+    @media screen and (max-width: 1280px) {
+        grid-template-columns: 40px 1fr;
+    }
     .content {
         background: #f1f4f9;
     }

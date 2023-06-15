@@ -1,0 +1,40 @@
+.callType {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    .active {
+        color: #002cfb;
+    }
+    .rotate {
+        transform: rotate(180deg);
+        path {
+            fill: #002cfb;
+        }
+    }
+    p {
+        margin-right: 8px;
+    }
+    .typePopup {
+        position: absolute;
+        width: 242px;
+        top: 25px;
+        right: 0;
+        z-index: 100;
+        border-radius: 4px;
+        border: 1px solid #eaf0fa;
+        box-shadow: 0px 0px 26px rgba(233, 237, 243, 0.8);
+        background: #fff;
+        color: #899cb1;
+        overflow: hidden;
+        cursor: pointer;
+        li {
+            padding: 14px 0 14px 20px;
+            &:hover {
+                background: rgba(0, 44, 251, 0.13);
+
+                color: #000;
+            }
+        }
+    }
+}
